@@ -1,0 +1,3 @@
+- use webservices to access the database
+- store every message in the system
+- set a special credentials for superuser

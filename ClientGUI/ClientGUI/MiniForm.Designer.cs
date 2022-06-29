@@ -1,0 +1,157 @@
+﻿namespace ClientGUI
+{
+    partial class MiniForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.Nameslb = new System.Windows.Forms.ListBox();
+            this.Selectbtn = new System.Windows.Forms.Button();
+            this.Cancelbtn = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // Nameslb
+            // 
+            this.Nameslb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(28)))));
+            this.Nameslb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Nameslb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Nameslb.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.Nameslb.FormattingEnabled = true;
+            this.Nameslb.ItemHeight = 16;
+            this.Nameslb.Items.AddRange(new object[] {
+            "Hamza Abuzahra",
+            "Omar Alshareef",
+            "Zeynep Yilmaz",
+            "Mohammed Nassier",
+            "Mohammad Hamid",
+            "Maxi Arat",
+            "Ali Allouch",
+            "Emran ",
+            "Hamza Abuzahra",
+            "Omar Alshareef",
+            "Zeynep Yilmaz",
+            "Mohammed Nassier",
+            "Mohammad Hamid",
+            "Maxi Arat",
+            "Ali Allouch",
+            "Emran ",
+            "Hamza Abuzahra",
+            "Omar Alshareef",
+            "Zeynep Yilmaz",
+            "Mohammed Nassier",
+            "Mohammad Hamid",
+            "Maxi Arat",
+            "Ali Allouch",
+            "Emran ",
+            "Hamza Abuzahra",
+            "Omar Alshareef",
+            "Zeynep Yilmaz",
+            "Mohammed Nassier",
+            "Mohammad Hamid",
+            "Maxi Arat",
+            "Ali Allouch",
+            "Emran ",
+            "Hamza Abuzahra",
+            "Omar Alshareef",
+            "Zeynep Yilmaz",
+            "Mohammed Nassier",
+            "Mohammad Hamid",
+            "Maxi Arat",
+            "Ali Allouch",
+            "Emran ",
+            "Hamza Abuzahra",
+            "Omar Alshareef",
+            "Zeynep Yilmaz",
+            "Mohammed Nassier",
+            "Mohammad Hamid",
+            "Maxi Arat",
+            "Ali Allouch",
+            "Emran ",
+            "Hamza Abuzahra",
+            "Omar Alshareef",
+            "Zeynep Yilmaz",
+            "Mohammed Nassier",
+            "Mohammad Hamid",
+            "Maxi Arat",
+            "Ali Allouch",
+            "Emran "});
+            this.Nameslb.Location = new System.Drawing.Point(12, 12);
+            this.Nameslb.Name = "Nameslb";
+            this.Nameslb.Size = new System.Drawing.Size(175, 258);
+            this.Nameslb.TabIndex = 1;
+            this.Nameslb.SelectedValueChanged += new System.EventHandler(this.Nameslb_SelectedValueChanged);
+            // 
+            // Selectbtn
+            // 
+            this.Selectbtn.Enabled = false;
+            this.Selectbtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.Selectbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Selectbtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.Selectbtn.Location = new System.Drawing.Point(13, 279);
+            this.Selectbtn.Name = "Selectbtn";
+            this.Selectbtn.Size = new System.Drawing.Size(80, 37);
+            this.Selectbtn.TabIndex = 2;
+            this.Selectbtn.Text = "Select";
+            this.Selectbtn.UseVisualStyleBackColor = true;
+            this.Selectbtn.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Cancelbtn
+            // 
+            this.Cancelbtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.Cancelbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Cancelbtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.Cancelbtn.Location = new System.Drawing.Point(107, 279);
+            this.Cancelbtn.Name = "Cancelbtn";
+            this.Cancelbtn.Size = new System.Drawing.Size(80, 37);
+            this.Cancelbtn.TabIndex = 3;
+            this.Cancelbtn.Text = "Cancel";
+            this.Cancelbtn.UseVisualStyleBackColor = true;
+            this.Cancelbtn.Click += new System.EventHandler(this.Cancelbtn_Click);
+            // 
+            // MiniForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(28)))));
+            this.ClientSize = new System.Drawing.Size(200, 328);
+            this.Controls.Add(this.Cancelbtn);
+            this.Controls.Add(this.Selectbtn);
+            this.Controls.Add(this.Nameslb);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.Name = "MiniForm";
+            this.Text = "Send to...";
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.ListBox Nameslb;
+        private System.Windows.Forms.Button Selectbtn;
+        private System.Windows.Forms.Button Cancelbtn;
+    }
+}
