@@ -7,7 +7,7 @@ from datetime import date
 
 url = "http://127.0.0.1:5000/"
 
-
+active_users = []
 
 class Server():
     # constructor creates the socket object 
@@ -50,6 +50,10 @@ class Server():
                 self.signUp()
             elif msg == "1":
                 self.auth()
+            elif msg == "2":
+                self.active()
+            elif msg == "3":
+                self.sendChat()
 
     # functions for application (authintication, signing up, who is active, sending messages (1-1, 1-M), super user) 
     def auth(self):
@@ -60,6 +64,7 @@ class Server():
         if "True" in response:
             print("l")
             self.sendMessage("Loggin in")
+            active_users.append(username)
         else:
             self.sendMessage("wrong")
 
@@ -67,7 +72,6 @@ class Server():
         username = self.getMessage()
         password = self.getMessage()
         response = self.getResponse("signup", f"username={username}&password={password}")
-        print(response)
         if "True" in response:
             print("i")
             self.sendMessage("you are in")
@@ -78,7 +82,8 @@ class Server():
         pass
     
     def active(self):
-        pass
+        users = ",".join(active_users)
+        self.sendMessage(users)        
 
 # create and starts the server class
 def main():

@@ -35,5 +35,21 @@ namespace ClientGUI
                 currentchatlbl.Text = name;
             
         }
+        
+        private void activebtn_Click(object sender, EventArgs e)
+        {
+            Login.sendMsg("2");
+            string users = Login.getMsg();
+            DateTime now = DateTime.Now;
+            MessageBox.Show(users, now.ToString(), MessageBoxButtons.OK);
+
+        }
+
+        private void sendbtn_Click(object sender, EventArgs e)
+        {
+            Login.sendMsg("3");
+            string msg = msgtxtbx.Text;
+            Login.sendMsg(msg);
+        }
     }
 }
