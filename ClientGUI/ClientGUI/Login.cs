@@ -29,15 +29,20 @@ namespace ClientGUI
         // client socket
         public static void sendMsg(string text)
         {
-            byte[] msg = Encoding.UTF8.GetBytes(text);
+            // encrypt the message:
+            var encryptedMessage = EncryptMessage(text);
+            // send the encrypted message
+            byte[] msg = Encoding.UTF8.GetBytes(encryptedMessage);
             int bytesSent = clientSocket.Send(msg);
         }
         public static string getMsg()
         {
+            
             Console.WriteLine("waiting for server");
             int bytesReceived = clientSocket.Receive(bytes);
             string msg = Encoding.UTF8.GetString(bytes, 0, bytesReceived);
-            Console.WriteLine(msg);
+            var decryptedMessage = DecryptMessge(msg);
+            Console.WriteLine(decryptedMessage);
             return msg;
         }
         public void StartClient()
@@ -51,7 +56,9 @@ namespace ClientGUI
             try
             {
                 Console.WriteLine("waiting to connect to the server");
-                clientSocket.Connect(remoteEP);
+                clientSocket.Connect(remoteEP); // connection point and handshake complete
+                // send client public key to server
+                
                 Console.WriteLine("Connected succefully to port 777");
                 getMsg();
 
@@ -61,8 +68,8 @@ namespace ClientGUI
                 Console.WriteLine(e.ToString());
             }
         }
-       
-       
+
+
         private void Login_Load(object sender, EventArgs e)
         {
             StartClient();
@@ -101,7 +108,7 @@ namespace ClientGUI
             {
                 MessageBox.Show("Username or Password are not valid, please try again!");
             }
-            
+
         }
         // closing the form
         public static void handleClosing()
@@ -128,5 +135,24 @@ namespace ClientGUI
                 }
             }
         }
+
+        private static string getKey()
+        {
+            var key = "b14ca5898a4e4133bbce2ea2315a1916";
+            return key;
+        }
+        public static string EncryptMessage(string text)
+        {
+            var key = getKey();
+            var encryptedString = AesOperation.EncryptString(key, text);
+            return encryptedString;
+        }
+        public static string DecryptMessge(string text)
+        {
+            var key = getKey();
+            var decryptedString = AesOperation.DecryptString(key, text);
+            return decryptedString;
+        }
     }
+
 }

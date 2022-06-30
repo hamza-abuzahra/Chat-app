@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "641dfd9f-ff90-4fa7-9f17-1f01b979589d": {
+      "ProjectGuid": "641dfd9f-ff90-4fa7-9f17-1f01b979589d",
+      "DisplayName": "ClientGUI",
+      "ColorIndex": 0
+    },
+    "9dcc197f-a16a-4d58-a5b3-c1a29ebf07d2": {
+      "ProjectGuid": "9dcc197f-a16a-4d58-a5b3-c1a29ebf07d2",
+      "DisplayName": "Solution Items",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
