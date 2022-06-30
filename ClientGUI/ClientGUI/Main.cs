@@ -47,9 +47,15 @@ namespace ClientGUI
 
         private void sendbtn_Click(object sender, EventArgs e)
         {
-            Login.sendMsg("3");
-            string msg = msgtxtbx.Text;
-            Login.sendMsg(msg);
+            //Login.sendMsg("3");
+            string msg = msgtxtbx.Text + "\r\n";
+            //Login.sendMsg(msg);
+            chattxtbx.AppendText(msg);
+            //chatlstbx.Items[chatlstbx.Items.Count].BackColor = 
+            msgtxtbx.Text = "";
+
         }
+
+        
     }
 }

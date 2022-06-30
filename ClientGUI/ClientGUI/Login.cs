@@ -58,7 +58,6 @@ namespace ClientGUI
         {
             int bytesReceived = clientSocket.Receive(bytes);
             string msg = Encoding.UTF8.GetString(bytes, 0, bytesReceived);
-            Console.WriteLine(msg);
             return msg;
         }
         private void Login_Load(object sender, EventArgs e)

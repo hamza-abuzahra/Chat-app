@@ -30,23 +30,26 @@ namespace ClientGUI
             if (confirmpass != password)
             {
                 MessageBox.Show("Password has to be entered twice!");
-                return;
+                
             }
-            Login.sendMsg("0");
-            Login.sendMsg(username);
-            Login.sendMsg(password);
-            string response = Login.getMsg();
-            Console.WriteLine(response);
+            else {
+                Login.sendMsg("0");
+                Login.sendMsg(username);
+                Login.sendMsg(password);
+                string response = Login.getMsg();
+                Console.WriteLine(response);
 
-            if (response == "you are in")
-            {
-                MessageBox.Show("you are registerd succefully");
+                if (response == "you are in")
+                {
+                    MessageBox.Show("you are registerd succefully");
+                }
+                else
+                {
+                    MessageBox.Show("Only employees inside the company can register");
+                }
+                this.Close();
             }
-            else
-            {
-                MessageBox.Show("Only employees inside the company can register");
-            }
-            this.Close();
+            
         }
     }
 }

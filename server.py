@@ -7,7 +7,7 @@ from datetime import date
 
 url = "http://127.0.0.1:5000/"
 
-active_users = []
+active_users = ["me"]
 
 class Server():
     # constructor creates the socket object 
