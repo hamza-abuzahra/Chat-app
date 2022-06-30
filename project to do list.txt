@@ -1,7 +1,4 @@
 - store every message in the system
-- update (last active) 
-- allow multipile clients to connect to the server
-- handle exiting the client
-- 
+
 - set a special credentials for superuser
 - enable encryption

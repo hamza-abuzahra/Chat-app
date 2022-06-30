@@ -9,7 +9,8 @@ create table Info(
     Ename varchar(20),
     Esurname varchar(20), 
     Eemail varchar(45),
-    Epassword varchar(20)
+    Epassword varchar(20), 
+    ElastAcess Time
 );
 
 

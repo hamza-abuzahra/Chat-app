@@ -57,5 +57,19 @@ namespace ClientGUI
         }
 
         
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult answer = MessageBox.Show("Are you sure you want to exit?", "Confirm", MessageBoxButtons.YesNo);
+            if (answer == DialogResult.Yes)
+            {
+                Login.handleClosing();
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

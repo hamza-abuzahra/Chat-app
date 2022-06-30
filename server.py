@@ -1,9 +1,11 @@
 from argparse import ArgumentError
+from ast import Try
 from urllib import response
 import requests
 import socket as sk
 import time
 from datetime import date
+from _thread import *
 
 url = "http://127.0.0.1:5000/"
 
@@ -25,65 +27,79 @@ class Server():
         print("socket bind is done")
         self.socket.listen(5)
         print("socket is listening")
-        self.c, self.addr = self.socket.accept()
+        while True:
+            self.accept_connections()
+
+    def accept_connections(self):
+        c, self.address = self.socket.accept()
         print("connected successfully")
-        self.sendMessage("Welcome to the server")
-        self.mainFunc()
-    
+        self.sendMessage(c, "Welcome to the server")
+        start_new_thread(self.mainFunc, (c, ))
+
     # waits for a message from the client and return the message
-    def getMessage(self):
-        message = self.c.recv(1024).decode()
+    def getMessage(self, c):
+        message = c.recv(1024).decode()
+        print(message)
         return message
     
     # send a message to the client
-    def sendMessage(self, message):
-        self.c.send(message.encode())
+    def sendMessage(self, c,  message):
+        c.send(message.encode())
     
     def getResponse(self, method="", args=""):
         requestedUrl = f"{url}{method}?{args}"
         return requests.get(requestedUrl).text
 
-    def mainFunc(self):
+    def mainFunc(self, c):
         while True:
-            msg = self.getMessage()
+            msg = self.getMessage(c)
             if msg == "0":
-                self.signUp()
+                self.signUp(c)
             elif msg == "1":
-                self.auth()
+                self.auth(c)
             elif msg == "2":
-                self.active()
+                self.active(c)
             elif msg == "3":
-                self.sendChat()
+                self.sendChat(c)
+            elif msg == "exit":
+                self.endConnection(c)
+                break
 
     # functions for application (authintication, signing up, who is active, sending messages (1-1, 1-M), super user) 
-    def auth(self):
-        username = self.getMessage()
-        password = self.getMessage()
+    def auth(self, c):
+        username = self.getMessage(c)
+        password = self.getMessage(c)
         args = f"username={username}&password={password}"
         response = self.getResponse("auth", args)
         if "True" in response:
             print("l")
-            self.sendMessage("Loggin in")
+            self.sendMessage(c, "Loggin in")
             active_users.append(username)
         else:
             self.sendMessage("wrong")
 
-    def signUp(self):
-        username = self.getMessage()
-        password = self.getMessage()
+    def signUp(self, c):
+        username = self.getMessage(c)
+        password = self.getMessage(c)
         response = self.getResponse("signup", f"username={username}&password={password}")
         if "True" in response:
             print("i")
-            self.sendMessage("you are in")
+            self.sendMessage(c, "you are in")
         else:
-            self.sendMessage("stay away from me you are a hacker")
+            self.sendMessage(c, "stay away from me you are a hacker")
 
     def sendChat(self):
         pass
     
-    def active(self):
+    def active(self, c):
         users = ",".join(active_users)
-        self.sendMessage(users)        
+        print(active_users)
+        self.sendMessage(c, users)      
+
+    def endConnection(self, c):
+        username = self.getMessage(c)
+        active_users.remove(username)
+        c.close()
 
 # create and starts the server class
 def main():

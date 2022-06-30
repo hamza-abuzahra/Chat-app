@@ -46,7 +46,7 @@
             this.signupbtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.signupbtn.Location = new System.Drawing.Point(281, 471);
             this.signupbtn.Margin = new System.Windows.Forms.Padding(1);
-            this.signupbtn.Name = "loginbtn";
+            this.signupbtn.Name = "signupbtn";
             this.signupbtn.Size = new System.Drawing.Size(163, 46);
             this.signupbtn.TabIndex = 3;
             this.signupbtn.Text = "Don\'t have an account?";
@@ -69,7 +69,7 @@
             // 
             this.ustxtbx.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.ustxtbx.Location = new System.Drawing.Point(93, 164);
-            this.ustxtbx.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ustxtbx.Margin = new System.Windows.Forms.Padding(4);
             this.ustxtbx.Name = "ustxtbx";
             this.ustxtbx.Size = new System.Drawing.Size(349, 36);
             this.ustxtbx.TabIndex = 5;
@@ -90,7 +90,7 @@
             // 
             this.passtxtbx.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.passtxtbx.Location = new System.Drawing.Point(93, 314);
-            this.passtxtbx.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.passtxtbx.Margin = new System.Windows.Forms.Padding(4);
             this.passtxtbx.Name = "passtxtbx";
             this.passtxtbx.PasswordChar = '*';
             this.passtxtbx.Size = new System.Drawing.Size(349, 36);
@@ -106,7 +106,7 @@
             this.loginbtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.loginbtn.Location = new System.Drawing.Point(93, 471);
             this.loginbtn.Margin = new System.Windows.Forms.Padding(1);
-            this.loginbtn.Name = "signupbtn";
+            this.loginbtn.Name = "loginbtn";
             this.loginbtn.Size = new System.Drawing.Size(163, 46);
             this.loginbtn.TabIndex = 8;
             this.loginbtn.Text = "Sign in";
@@ -126,10 +126,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.signupbtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Login";
             this.Text = "Login";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
             this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

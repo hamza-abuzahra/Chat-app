@@ -21,12 +21,25 @@ namespace ClientGUI
     {
         public static Socket clientSocket;
         public static byte[] bytes = new byte[1024];
-
+        public static string currentuser = "";
         public Login()
         {
             InitializeComponent();
         }
         // client socket
+        public static void sendMsg(string text)
+        {
+            byte[] msg = Encoding.UTF8.GetBytes(text);
+            int bytesSent = clientSocket.Send(msg);
+        }
+        public static string getMsg()
+        {
+            Console.WriteLine("waiting for server");
+            int bytesReceived = clientSocket.Receive(bytes);
+            string msg = Encoding.UTF8.GetString(bytes, 0, bytesReceived);
+            Console.WriteLine(msg);
+            return msg;
+        }
         public void StartClient()
         {
             IPHostEntry host = Dns.GetHostEntry("localhost");
@@ -49,17 +62,7 @@ namespace ClientGUI
             }
         }
        
-        public static void sendMsg(string text)
-        {
-            byte[] msg = Encoding.UTF8.GetBytes(text);
-            int bytesSent = clientSocket.Send(msg);
-        }
-        public static string getMsg()
-        {
-            int bytesReceived = clientSocket.Receive(bytes);
-            string msg = Encoding.UTF8.GetString(bytes, 0, bytesReceived);
-            return msg;
-        }
+       
         private void Login_Load(object sender, EventArgs e)
         {
             StartClient();
@@ -77,19 +80,22 @@ namespace ClientGUI
         {
             sendMsg("1");
             string username = this.ustxtbx.Text;
-            string password = this.passtxtbx.Text;
             sendMsg(username);
+            Console.WriteLine(username);
+            string password = this.passtxtbx.Text;
+            Console.WriteLine(password);
             sendMsg(password);
             string response = getMsg();
             Console.WriteLine(response);
 
             if (response == "Loggin in")
             {
+                currentuser = username;
                 MessageBox.Show("Welcome again!");
                 Main main = new Main();
                 this.Hide();
                 main.ShowDialog();
-                this.Close();
+                Application.Exit();
             }
             else
             {
@@ -97,6 +103,30 @@ namespace ClientGUI
             }
             
         }
-        
+        // closing the form
+        public static void handleClosing()
+        {
+            sendMsg("exit");
+            sendMsg(currentuser);
+            clientSocket.Close();
+        }
+
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                DialogResult answer = MessageBox.Show("Are you sure you want to exit?", "Confirm", MessageBoxButtons.YesNo);
+                Console.WriteLine(answer);
+                if (answer == DialogResult.Yes)
+                {
+                    handleClosing();
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
     }
 }
