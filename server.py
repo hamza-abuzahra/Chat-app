@@ -6,9 +6,15 @@ import socket as sk
 import time
 from datetime import date
 from _thread import *
+import base64
+import hashlib
+from Crypto.Cipher import AES
 from Crypto import Random
-from Crypto.PublicKey import RSA
-import Crypto
+
+
+BLOCK_SIZE = 16
+pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * chr(BLOCK_SIZE - len(s) % BLOCK_SIZE)
+unpad = lambda s: s[:-ord(s[len(s) - 1:])]
 
 
 url = "http://127.0.0.1:5000/"
@@ -48,13 +54,13 @@ class Server():
     # waits for a message from the client and return the message
     def getMessage(self, c):
         message = c.recv(1024).decode()
-        decryptedMessage = decryptedMessage(message)
+        decryptedMessage = self.decryptedMessage(message)
         print(message)
         return message
     
     # send a message to the client
     def sendMessage(self, c,  message):
-        encryptedMessage =  encryptMessage(message)
+        encryptedMessage =  self.encryptMessage(message)
         c.send(encryptedMessage.encode())
     
     def getResponse(self, method="", args=""):
@@ -118,7 +124,8 @@ class Server():
         key = "b14ca5898a4e4133bbce2ea2315a1916"
 
     def encryptMessage(self, text):
-        key = getKey
+        key = self.getKey()
+        private_key = hashlib.sha256(key.encode("utf-8")).digest()
         plain_text = pad(plain_text)
         print("After padding:", plain_text)
         iv = Random.new().read(AES.block_size)
@@ -127,7 +134,8 @@ class Server():
 
 
     def decrypt(self, text):
-        key = getKey
+        key = self.getKey()
+        private_key = hashlib.sha256(key.encode("utf-8")).digest()
         cipher_text = base64.b64decode(text)
         iv = text[:16]
         cipher = AES.new(key, AES.MODE_CBC, iv)
