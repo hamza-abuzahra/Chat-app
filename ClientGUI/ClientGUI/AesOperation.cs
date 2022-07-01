@@ -60,7 +60,12 @@ namespace ClientGUI
                 }
             }
         }
+<<<<<<< Updated upstream
     
   
+=======
+
+
+>>>>>>> Stashed changes
     }
 }
