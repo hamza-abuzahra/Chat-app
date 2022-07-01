@@ -1,6 +1,4 @@
-- 1 to many
-
-
-- set a special credentials for superuser
+- super user
+	
 
 - enable encryption

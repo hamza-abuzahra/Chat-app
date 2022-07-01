@@ -10,7 +10,7 @@ create table Info(
     Esurname varchar(20), 
     Eemail varchar(45),
     Epassword varchar(20), 
-    ElastAcess Time
+    ElastAcess Datetime
 );
 
 
@@ -24,6 +24,6 @@ insert into Info values (7, "Maximilian", "Arat", "cevdet.arat@bilgiedu.net", ""
 insert into Info values (8, "Emran", "Khammash", "di.sa@bilgiedu.net", "", "");
 insert into Info values (9, "Maged", "Al-Ward", "abdullah.alward@bilgiedu.net", "", "");
 insert into Info values (10, "Murat", "Oguz", "murat.oguz@bilgi.edu.tr", "", "");
-insert into Info values (11, "everyone", "everyone", "everyone", "", "");
+insert into Info values (11, "everyone", "everyone", "Everyone", "", "");
 insert into Info values (12, "super", "user", "superuser", "root", "");
 

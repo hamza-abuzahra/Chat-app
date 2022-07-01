@@ -40,3 +40,5 @@ C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\
 C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\ClientGUI\ClientGUI\obj\Debug\ClientGUI.csproj.CoreCompileInputs.cache
 C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\ClientGUI\ClientGUI\obj\Debug\ClientGUI.exe
 C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\ClientGUI\ClientGUI\obj\Debug\ClientGUI.pdb
+C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\ClientGUI\ClientGUI\obj\Debug\ClientGUI.Logs.resources
+C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\ClientGUI\ClientGUI\obj\Debug\ClientGUI.Superuser.resources

@@ -13,7 +13,6 @@ class Server():
     # constructor creates the socket object 
     def __init__(self, port):
         self.socket = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
-        print("socket created successfully")
         self.port = port
 
     # start listening for a client to connect, and then calls auth function 
@@ -21,8 +20,6 @@ class Server():
     def startListening(self):
         host = sk.gethostname()
         self.socket.bind(('localhost', self.port))
-        print(host)
-        print("socket bind is done")
         self.socket.listen(5)
         print("socket is listening")
         while True:
@@ -72,6 +69,10 @@ class Server():
                 self.updateChats(c)
             elif msg == "5":
                 self.getallemployees(c)
+            elif msg == "6":
+                self.updateChats(c)
+            elif msg == "7":
+                self.getlastacess(c)
             elif msg == "exit":
                 self.endConnection(c)
                 break
@@ -83,7 +84,6 @@ class Server():
         args = f"username={username}&password={password}"
         response = self.getResponse("auth", args)
         if "True" in response:
-            print("l")
             self.send(c, "Loggin in")
             active_users.append(username)
         else:
@@ -94,7 +94,6 @@ class Server():
         password = self.recieve(c)
         response = self.getResponse("signup", f"username={username}&password={password}")
         if "True" in response:
-            print("i")
             self.send(c, "you are in")
         else:
             self.send(c, "stay away from me you are a hacker")
@@ -104,38 +103,42 @@ class Server():
         reciver = self.recieve(c)
         sender = self.recieve(c)
         response = self.getResponse("sendchat", f"sender={sender}&reciever={reciver}&msg={msg}")[3:-4].split(",")
-        # needs_update[int(response[0])] = True
-        # needs_update[int(response[1])] = True
 
 
     def updateChats(self, c):
-        print("update")
         sender = self.recieve(c)
-        print(sender)
         reciever = self.recieve(c)
         response = self.getResponse("getchat", f"sender={sender}&reciever={reciever}")[3:-4]
         results = list(eval(response))
         for msg in results:
             self.send(c, msg['MessageSent'])
-            print('msg')
-            self.send(c, str(msg['Senderid']))
-            print('sender') 
+            self.send(c, str(msg['Senderid'])) 
             self.send(c, str(msg['Recieverid']))
-        self.send(c, "END")
-    
-    def getallemployees(self, c):
-        response = self.getResponse("employees", "")        
+        self.send(c, "END")      
 
     def active(self, c):
         users = "\n".join(active_users)
-        print(active_users)
         self.send(c, users)
 
     def endConnection(self, c):
         username = self.recieve(c)
         active_users.remove(username)
+        self.getResponse("updateacesstime", f"username={username}")
         c.close()
 
+    # def getChat(self, c):
+    #     u1 = self.recieve(c)
+    #     u2 = self.recieve(c)
+    #     response = self.getResponse("getchat", f"u1={u1}&u2={u2}")
+    #     results = list(eval(response))
+    #     for msg in results:
+    #         self.send(c, msg['MessageSent'])
+    #         self.send(c, str(msg['Senderid'])) 
+    #         self.send(c, str(msg['Recieverid']))
+    #     self.send(c, "END") 
+
+    def getlastacess(self, c):
+        pass
 # create and starts the server class
 def main():
     s = Server(777)

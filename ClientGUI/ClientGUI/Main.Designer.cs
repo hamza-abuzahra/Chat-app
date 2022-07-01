@@ -56,6 +56,7 @@
             this.sendbtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.sendbtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.sendbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sendbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.sendbtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.sendbtn.Location = new System.Drawing.Point(972, 454);
             this.sendbtn.Margin = new System.Windows.Forms.Padding(4);
@@ -71,6 +72,7 @@
             this.activebtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.activebtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.activebtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.activebtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.activebtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.activebtn.Location = new System.Drawing.Point(15, 25);
             this.activebtn.Margin = new System.Windows.Forms.Padding(4);
@@ -86,6 +88,7 @@
             this.Directbtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Directbtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Directbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Directbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.Directbtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.Directbtn.Location = new System.Drawing.Point(15, 177);
             this.Directbtn.Margin = new System.Windows.Forms.Padding(4);
@@ -101,6 +104,7 @@
             this.Generalbtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Generalbtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Generalbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Generalbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.Generalbtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.Generalbtn.Location = new System.Drawing.Point(15, 101);
             this.Generalbtn.Margin = new System.Windows.Forms.Padding(4);

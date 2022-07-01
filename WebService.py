@@ -4,12 +4,10 @@ from os import curdir
 from datetime import datetime
 
 from colorama import Cursor
+from setuptools import Command
 from flask import Flask, request
 import pymysql.cursors
 
-# now = datetime.now()
-# current_time = now.strftime("%Y-%M-%d %H:%M:%S")
-# print(current_time)
 
 class Db:
     def __init__(self):
@@ -20,7 +18,6 @@ class Db:
             self.cursor.execute("use employeeinfo")
             self.cursor.execute("select * from info")
             result = self.cursor.fetchall()
-            print(result)
             self.cursor.execute("select * from messagelog")
             result = self.cursor.fetchall()
             self.count = len(result) + 1
@@ -38,17 +35,14 @@ class Db:
             paswrd = result[0]['Epassword']
             if password == paswrd:
                 return True
-        print(result)
         return False
 
     def isUnValid(self, username, password):
         self.cursor.execute(f"select * from info where Eemail = \"{username}\";")
         result = self.cursor.fetchall()
-        print(result)
         if len(result) > 0:
             paswrd = result[0]['Epassword']
             if paswrd != '':
-                print("you are already registerd")
                 return False
             else:
                 self.cursor.execute(f"UPDATE info SET Epassword = \"{password}\" WHERE Eemail = \"{username}\";")
@@ -64,7 +58,6 @@ class Db:
         recieverid = recieverinfo[0]['Eid']
         now = datetime.now()
         current_time = now.strftime("%Y-%m-%d %H:%M:%S")
-        print(current_time)
         sqlcommand = f"insert into messagelog values({self.count}, {senderid}, {recieverid}, \"{msg}\", \'{current_time}\')"
         self.cursor.execute(sqlcommand)
         self.connection.commit()
@@ -78,20 +71,29 @@ class Db:
         sqlcommand = f"select * from info where Eemail = \"{reciever}\""
         self.cursor.execute(sqlcommand)
         recieverinfo = self.cursor.fetchall()
-        print(senderinfo)
-        print(recieverinfo)
         senderid = senderinfo[0]["Eid"]
         recieverid = recieverinfo[0]["Eid"]
         #  union 
-        sqlcommand = f"select * from messagelog where (senderid = {senderid} and recieverid = {recieverid})"
-        sqlcommand2 = f"select * from messagelog where (senderid = {recieverid} and recieverid = {senderid})"
+        if senderid == 11:
+            sqlcommand = f"select * from messagelog where (senderid = {senderid})"
+            sqlcommand2 = f"select * from messagelog where (recieverid = {senderid})"
+        elif recieverid == 11:
+            sqlcommand = f"select * from messagelog where (senderid = {recieverid})"
+            sqlcommand2 = f"select * from messagelog where (recieverid = {recieverid})"
+        else:
+            sqlcommand = f"select * from messagelog where (senderid = {senderid} and recieverid = {recieverid})"
+            sqlcommand2 = f"select * from messagelog where (senderid = {recieverid} and recieverid = {senderid})"
         self.cursor.execute(f"{sqlcommand} union {sqlcommand2} order by MessageTime")
         results = self.cursor.fetchall()
-        print(results)
         return results
     
-    def employees(self):
-        pass
+    def updateaccesstime(self, username):
+        now = datetime.now()
+        current_time = now.strftime("%Y-%m-%d %H:%M:%S")
+        sqlcommand = f"update info set Elastacess = {current_time} where Eemail = {username}"
+        self.cursor.execute(sqlcommand)
+        results = self.cursor.fetchall()
+        return results
 
 
 db = Db()
@@ -135,9 +137,10 @@ def getchat():
     msgs = db.getallmsgs(sender, reciever)
     return f"<p>{msgs}</p>"
 
-@app.route("/employees")
-def employees():
-    results = db.employees()
-
+@app.route("/updateaccesstime", methods=['get'])
+def udpateaccesstime():
+    username = request.args.get("username", None)
+    db.updateaccesstime(username)
+    return "<p>ok</p>"
 
 app.run(debug=True, port=5000)

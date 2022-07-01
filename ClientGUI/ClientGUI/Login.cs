@@ -28,7 +28,7 @@ namespace ClientGUI
         public static Semaphore s = new Semaphore(0, 1);
         public static string[] idnames = {"hamza.abuzahra@bilgiedu.net", "abdul.hamed@bilgiedu.net", "al.alshareef@bilgiedu.net",
             "sena.yilmaz03@bilgiedu.net", "ali.allouche@bilgiedu.net", "ghassan.nasseir@bilgiedu.net", "cevdet.arat@bilgiedu.net",
-            "di.sa@bilgiedu.net", "abdullah.alward@bilgiedu.net", "murat.oguz@bilgi.edu.tr"};
+            "di.sa@bilgiedu.net", "abdullah.alward@bilgiedu.net", "murat.oguz@bilgi.edu.tr", "Everyone"};
         public static bool flag = false;
         public Login()
         {
