@@ -33,10 +33,10 @@ namespace ClientGUI
                 
             }
             else {
-                Login.sendMsg("0");
-                Login.sendMsg(username);
-                Login.sendMsg(password);
-                string response = Login.getMsg();
+                Login.send("0");
+                Login.send(username);
+                Login.send(password);
+                string response = Login.recieve();
                 Console.WriteLine(response);
 
                 if (response == "you are in")

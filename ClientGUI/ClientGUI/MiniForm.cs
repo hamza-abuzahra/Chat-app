@@ -16,6 +16,16 @@ namespace ClientGUI
         public MiniForm()
         {
             InitializeComponent();
+            foreach (string item in Nameslb.Items)
+            {
+                if (item.Contains(Login.currentuser))
+                {
+                    Nameslb.Items.Remove(item);
+                    break;
+                }
+            }
+            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -38,5 +48,6 @@ namespace ClientGUI
         {
             Selectbtn.Enabled = true;
         }
+
     }
 }

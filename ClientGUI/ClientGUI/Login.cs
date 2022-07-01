@@ -2,6 +2,7 @@
 // socket programming
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 // forms
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,15 +23,24 @@ namespace ClientGUI
         public static Socket clientSocket;
         public static byte[] bytes = new byte[1024];
         public static string currentuser = "";
+        public static Main main = new Main();
+        public static Thread listen;
+        public static Semaphore s = new Semaphore(0, 1);
+        public static string[] idnames = {"hamza.abuzahra@bilgiedu.net", "abdul.hamed@bilgiedu.net", "al.alshareef@bilgiedu.net",
+            "sena.yilmaz03@bilgiedu.net", "ali.allouche@bilgiedu.net", "ghassan.nasseir@bilgiedu.net", "cevdet.arat@bilgiedu.net",
+            "di.sa@bilgiedu.net", "abdullah.alward@bilgiedu.net", "murat.oguz@bilgi.edu.tr"};
+        public static bool flag = false;
         public Login()
         {
             InitializeComponent();
+            s.Release();
         }
         // client socket
         public static void sendMsg(string text)
         {
             byte[] msg = Encoding.UTF8.GetBytes(text);
             int bytesSent = clientSocket.Send(msg);
+
         }
         public static string getMsg()
         {
@@ -38,6 +48,18 @@ namespace ClientGUI
             int bytesReceived = clientSocket.Receive(bytes);
             string msg = Encoding.UTF8.GetString(bytes, 0, bytesReceived);
             Console.WriteLine(msg);
+            return msg;
+        }
+        public static void send(string text)
+        {
+            sendMsg(text);
+            string response = getMsg();
+        }
+        public static string recieve()
+        {
+            string msg = getMsg();
+            sendMsg("got it");
+
             return msg;
         }
         public void StartClient()
@@ -53,8 +75,9 @@ namespace ClientGUI
                 Console.WriteLine("waiting to connect to the server");
                 clientSocket.Connect(remoteEP);
                 Console.WriteLine("Connected succefully to port 777");
-                getMsg();
+                string welcomemsg = recieve();
 
+                listen = new Thread(new ThreadStart(main.updateChat));
             }
             catch (Exception e)
             {
@@ -78,22 +101,22 @@ namespace ClientGUI
         // login
         private void loginbtn_Click(object sender, EventArgs e)
         {
-            sendMsg("1");
+            send("1");
             string username = this.ustxtbx.Text;
-            sendMsg(username);
+            send(username);
             Console.WriteLine(username);
             string password = this.passtxtbx.Text;
             Console.WriteLine(password);
-            sendMsg(password);
-            string response = getMsg();
+            send(password);
+            string response = recieve();
             Console.WriteLine(response);
 
             if (response == "Loggin in")
             {
                 currentuser = username;
                 MessageBox.Show("Welcome again!");
-                Main main = new Main();
                 this.Hide();
+                listen.Start();
                 main.ShowDialog();
                 Application.Exit();
             }
@@ -106,9 +129,12 @@ namespace ClientGUI
         // closing the form
         public static void handleClosing()
         {
-            sendMsg("exit");
-            sendMsg(currentuser);
+            s.WaitOne();
+            send("exit");
+            send(currentuser);
             clientSocket.Close();
+            flag = true;
+            s.Release();
         }
 
         private void Login_FormClosing(object sender, FormClosingEventArgs e)

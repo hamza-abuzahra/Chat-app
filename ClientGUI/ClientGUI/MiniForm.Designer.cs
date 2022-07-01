@@ -40,67 +40,22 @@
             this.Nameslb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.Nameslb.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.Nameslb.FormattingEnabled = true;
-            this.Nameslb.ItemHeight = 16;
+            this.Nameslb.ItemHeight = 20;
             this.Nameslb.Items.AddRange(new object[] {
-            "Hamza Abuzahra",
-            "Omar Alshareef",
-            "Zeynep Yilmaz",
-            "Mohammed Nassier",
-            "Mohammad Hamid",
-            "Maxi Arat",
-            "Ali Allouch",
-            "Emran ",
-            "Hamza Abuzahra",
-            "Omar Alshareef",
-            "Zeynep Yilmaz",
-            "Mohammed Nassier",
-            "Mohammad Hamid",
-            "Maxi Arat",
-            "Ali Allouch",
-            "Emran ",
-            "Hamza Abuzahra",
-            "Omar Alshareef",
-            "Zeynep Yilmaz",
-            "Mohammed Nassier",
-            "Mohammad Hamid",
-            "Maxi Arat",
-            "Ali Allouch",
-            "Emran ",
-            "Hamza Abuzahra",
-            "Omar Alshareef",
-            "Zeynep Yilmaz",
-            "Mohammed Nassier",
-            "Mohammad Hamid",
-            "Maxi Arat",
-            "Ali Allouch",
-            "Emran ",
-            "Hamza Abuzahra",
-            "Omar Alshareef",
-            "Zeynep Yilmaz",
-            "Mohammed Nassier",
-            "Mohammad Hamid",
-            "Maxi Arat",
-            "Ali Allouch",
-            "Emran ",
-            "Hamza Abuzahra",
-            "Omar Alshareef",
-            "Zeynep Yilmaz",
-            "Mohammed Nassier",
-            "Mohammad Hamid",
-            "Maxi Arat",
-            "Ali Allouch",
-            "Emran ",
-            "Hamza Abuzahra",
-            "Omar Alshareef",
-            "Zeynep Yilmaz",
-            "Mohammed Nassier",
-            "Mohammad Hamid",
-            "Maxi Arat",
-            "Ali Allouch",
-            "Emran "});
-            this.Nameslb.Location = new System.Drawing.Point(12, 12);
+            "al.alshareef@bilgiedu.net",
+            "hamza.abuzahra@bilgiedu.net",
+            "abdul.hamed@bilgiedu.net",
+            "sena.yilmaz03@bilgiedu.net",
+            "ali.allouche@bilgiedu.net",
+            "ghassan.nasseir@bilgiedu.net",
+            "cevdet.arat@bilgiedu.net",
+            "di.sa@bilgiedu.net",
+            "abdullah.alward@bilgiedu.net",
+            "murat.oguz@bilgi.edu.tr"});
+            this.Nameslb.Location = new System.Drawing.Point(16, 15);
+            this.Nameslb.Margin = new System.Windows.Forms.Padding(4);
             this.Nameslb.Name = "Nameslb";
-            this.Nameslb.Size = new System.Drawing.Size(175, 258);
+            this.Nameslb.Size = new System.Drawing.Size(233, 302);
             this.Nameslb.TabIndex = 1;
             this.Nameslb.SelectedValueChanged += new System.EventHandler(this.Nameslb_SelectedValueChanged);
             // 
@@ -110,9 +65,10 @@
             this.Selectbtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Selectbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Selectbtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Selectbtn.Location = new System.Drawing.Point(13, 279);
+            this.Selectbtn.Location = new System.Drawing.Point(17, 343);
+            this.Selectbtn.Margin = new System.Windows.Forms.Padding(4);
             this.Selectbtn.Name = "Selectbtn";
-            this.Selectbtn.Size = new System.Drawing.Size(80, 37);
+            this.Selectbtn.Size = new System.Drawing.Size(107, 46);
             this.Selectbtn.TabIndex = 2;
             this.Selectbtn.Text = "Select";
             this.Selectbtn.UseVisualStyleBackColor = true;
@@ -123,9 +79,10 @@
             this.Cancelbtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Cancelbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Cancelbtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Cancelbtn.Location = new System.Drawing.Point(107, 279);
+            this.Cancelbtn.Location = new System.Drawing.Point(143, 343);
+            this.Cancelbtn.Margin = new System.Windows.Forms.Padding(4);
             this.Cancelbtn.Name = "Cancelbtn";
-            this.Cancelbtn.Size = new System.Drawing.Size(80, 37);
+            this.Cancelbtn.Size = new System.Drawing.Size(107, 46);
             this.Cancelbtn.TabIndex = 3;
             this.Cancelbtn.Text = "Cancel";
             this.Cancelbtn.UseVisualStyleBackColor = true;
@@ -133,14 +90,15 @@
             // 
             // MiniForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(28)))));
-            this.ClientSize = new System.Drawing.Size(200, 328);
+            this.ClientSize = new System.Drawing.Size(267, 404);
             this.Controls.Add(this.Cancelbtn);
             this.Controls.Add(this.Selectbtn);
             this.Controls.Add(this.Nameslb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "MiniForm";
             this.Text = "Send to...";

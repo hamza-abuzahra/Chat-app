@@ -3,14 +3,12 @@ from ast import Try
 from urllib import response
 import requests
 import socket as sk
-import time
-from datetime import date
 from _thread import *
+import datetime as datetime
 
 url = "http://127.0.0.1:5000/"
-
-active_users = ["me"]
-
+fullmsg = ''
+active_users = []
 class Server():
     # constructor creates the socket object 
     def __init__(self, port):
@@ -33,7 +31,7 @@ class Server():
     def accept_connections(self):
         c, self.address = self.socket.accept()
         print("connected successfully")
-        self.sendMessage(c, "Welcome to the server")
+        self.send(c, "Welcome to the server")
         start_new_thread(self.mainFunc, (c, ))
 
     # waits for a message from the client and return the message
@@ -50,9 +48,18 @@ class Server():
         requestedUrl = f"{url}{method}?{args}"
         return requests.get(requestedUrl).text
 
+    def recieve(self, c):
+        msg = self.getMessage(c)
+        self.sendMessage(c, "got it")
+        return msg
+
+    def send(self, c, msg):
+        self.sendMessage(c, msg)
+        response = self.getMessage(c)
+        
     def mainFunc(self, c):
         while True:
-            msg = self.getMessage(c)
+            msg = self.recieve(c)
             if msg == "0":
                 self.signUp(c)
             elif msg == "1":
@@ -61,43 +68,71 @@ class Server():
                 self.active(c)
             elif msg == "3":
                 self.sendChat(c)
+            elif msg == "4":
+                self.updateChats(c)
+            elif msg == "5":
+                self.getallemployees(c)
             elif msg == "exit":
                 self.endConnection(c)
                 break
 
     # functions for application (authintication, signing up, who is active, sending messages (1-1, 1-M), super user) 
     def auth(self, c):
-        username = self.getMessage(c)
-        password = self.getMessage(c)
+        username = self.recieve(c)
+        password = self.recieve(c)
         args = f"username={username}&password={password}"
         response = self.getResponse("auth", args)
         if "True" in response:
             print("l")
-            self.sendMessage(c, "Loggin in")
+            self.send(c, "Loggin in")
             active_users.append(username)
         else:
-            self.sendMessage("wrong")
+            self.send(c, "wrong")
 
     def signUp(self, c):
-        username = self.getMessage(c)
-        password = self.getMessage(c)
+        username = self.recieve(c)
+        password = self.recieve(c)
         response = self.getResponse("signup", f"username={username}&password={password}")
         if "True" in response:
             print("i")
-            self.sendMessage(c, "you are in")
+            self.send(c, "you are in")
         else:
-            self.sendMessage(c, "stay away from me you are a hacker")
+            self.send(c, "stay away from me you are a hacker")
 
-    def sendChat(self):
-        pass
+    def sendChat(self, c):
+        msg = self.recieve(c)
+        reciver = self.recieve(c)
+        sender = self.recieve(c)
+        response = self.getResponse("sendchat", f"sender={sender}&reciever={reciver}&msg={msg}")[3:-4].split(",")
+        # needs_update[int(response[0])] = True
+        # needs_update[int(response[1])] = True
+
+
+    def updateChats(self, c):
+        print("update")
+        sender = self.recieve(c)
+        print(sender)
+        reciever = self.recieve(c)
+        response = self.getResponse("getchat", f"sender={sender}&reciever={reciever}")[3:-4]
+        results = list(eval(response))
+        for msg in results:
+            self.send(c, msg['MessageSent'])
+            print('msg')
+            self.send(c, str(msg['Senderid']))
+            print('sender') 
+            self.send(c, str(msg['Recieverid']))
+        self.send(c, "END")
     
+    def getallemployees(self, c):
+        response = self.getResponse("employees", "")        
+
     def active(self, c):
-        users = ",".join(active_users)
+        users = "\n".join(active_users)
         print(active_users)
-        self.sendMessage(c, users)      
+        self.send(c, users)
 
     def endConnection(self, c):
-        username = self.getMessage(c)
+        username = self.recieve(c)
         active_users.remove(username)
         c.close()
 
