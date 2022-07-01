@@ -116,8 +116,16 @@ namespace ClientGUI
                 currentuser = username;
                 MessageBox.Show("Welcome again!");
                 this.Hide();
-                listen.Start();
-                main.ShowDialog();
+                if (currentuser == "superuser")
+                {
+                    Superuser su = new Superuser();
+                    su.ShowDialog();
+                }
+                else
+                {
+                    listen.Start();
+                    main.ShowDialog();
+                }
                 Application.Exit();
             }
             else

@@ -17,7 +17,7 @@ namespace ClientGUI
             InitializeComponent();
         }
 
-        private void activebtn_Click(object sender, EventArgs e)
+        private void activebtn2_Click(object sender, EventArgs e)
         {
             Login.s.WaitOne();
             Login.send("2");
@@ -29,14 +29,41 @@ namespace ClientGUI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            comboBox2.Items.Clear();
+            foreach (string name in Login.idnames)
+            {
+                comboBox2.Items.Add(name);
+            }
             string selecteditem1 = comboBox1.SelectedItem.ToString();
             comboBox2.Items.Remove(selecteditem1);
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            comboBox1.Items.Clear();
+            foreach (string name in Login.idnames)
+            {
+                comboBox1.Items.Add(name);
+            }
             string selecteditem2 = comboBox2.SelectedItem.ToString();
             comboBox1.Items.Remove(selecteditem2);
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Login.send("7");
+            string info, msg, time;
+            info = "";
+            while (true)
+            {
+                msg = Login.recieve();
+                if (msg == "END")
+                {
+                    break;
+                }
+                time = Login.recieve();
+                info += msg +"\t" + time +"\n";
+            }
+            MessageBox.Show(info, "Activity", MessageBoxButtons.OK);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -73,9 +100,29 @@ namespace ClientGUI
                 {
                     ms = ms.Substring(0, index);
                 }
-                logs.appendtextbox = msender + " :  " + ms;
+                logs.appendtextbox = ms + " :  " + msg;
             }
             logs.ShowDialog();
         }
+
+        private void Superuser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                DialogResult answer = MessageBox.Show("Are you sure you want to exit?", "Confirm", MessageBoxButtons.YesNo);
+                Console.WriteLine(answer);
+                if (answer == DialogResult.Yes)
+                {
+                    Login.handleClosing();
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        
     }
 }

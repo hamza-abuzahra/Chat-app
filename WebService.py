@@ -90,10 +90,17 @@ class Db:
     def updateaccesstime(self, username):
         now = datetime.now()
         current_time = now.strftime("%Y-%m-%d %H:%M:%S")
-        sqlcommand = f"update info set Elastacess = {current_time} where Eemail = {username}"
+        sqlcommand = f"update info set Elastacess = \'{current_time}\' where Eemail = \'{username}\'"
         self.cursor.execute(sqlcommand)
+        self.connection.commit()
         results = self.cursor.fetchall()
         return results
+
+    def getaccesstime(self):
+        sqlcommand = f"select Eemail, ElastAcess from info"
+        self.cursor.execute(sqlcommand)
+        result = self.cursor.fetchall()
+        return result
 
 
 db = Db()
@@ -142,5 +149,10 @@ def udpateaccesstime():
     username = request.args.get("username", None)
     db.updateaccesstime(username)
     return "<p>ok</p>"
+
+@app.route("/checkaccesstime")
+def checkaccesstime():
+    msg = db.getaccesstime()
+    return f"<p>{msg}</p>"
 
 app.run(debug=True, port=5000)

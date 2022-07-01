@@ -85,6 +85,7 @@ class Server():
         response = self.getResponse("auth", args)
         if "True" in response:
             self.send(c, "Loggin in")
+            self.getResponse("updateaccesstime", f"username={username}")
             active_users.append(username)
         else:
             self.send(c, "wrong")
@@ -123,22 +124,21 @@ class Server():
     def endConnection(self, c):
         username = self.recieve(c)
         active_users.remove(username)
-        self.getResponse("updateacesstime", f"username={username}")
+        self.getResponse("updateaccesstime", f"username={username}")
         c.close()
 
-    # def getChat(self, c):
-    #     u1 = self.recieve(c)
-    #     u2 = self.recieve(c)
-    #     response = self.getResponse("getchat", f"u1={u1}&u2={u2}")
-    #     results = list(eval(response))
-    #     for msg in results:
-    #         self.send(c, msg['MessageSent'])
-    #         self.send(c, str(msg['Senderid'])) 
-    #         self.send(c, str(msg['Recieverid']))
-    #     self.send(c, "END") 
-
     def getlastacess(self, c):
-        pass
+        response = self.getResponse("checkaccesstime", "")[3:-4]
+        results = list(eval(response))
+        for msg in results:
+            self.send(c, msg["Eemail"])
+            time = str(msg["ElastAcess"])
+            print(time)
+            print(type(time))
+            self.send(c, time)
+        self.send(c, "END")
+
+
 # create and starts the server class
 def main():
     s = Server(777)
