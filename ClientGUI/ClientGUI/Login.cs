@@ -30,30 +30,39 @@ namespace ClientGUI
             "sena.yilmaz03@bilgiedu.net", "ali.allouche@bilgiedu.net", "ghassan.nasseir@bilgiedu.net", "cevdet.arat@bilgiedu.net",
             "di.sa@bilgiedu.net", "abdullah.alward@bilgiedu.net", "murat.oguz@bilgi.edu.tr", "Everyone"};
         public static bool flag = false;
+        public static AES256 aes = new AES256();
         public Login()
         {
-            InitializeComponent();
             s.Release();
+            InitializeComponent();
         }
         // client socket
         public static void sendMsg(string text)
         {
-            byte[] msg = Encoding.UTF8.GetBytes(text);
+            // encrypt the message:
+            var encryptedMessage = EncryptMessage(text);
+            // send the encrypted message
+            Console.WriteLine(encryptedMessage);
+            Console.WriteLine(text);
+            byte[] msg = Encoding.UTF8.GetBytes(encryptedMessage);
             int bytesSent = clientSocket.Send(msg);
 
         }
         public static string getMsg()
         {
+            
             Console.WriteLine("waiting for server");
             int bytesReceived = clientSocket.Receive(bytes);
             string msg = Encoding.UTF8.GetString(bytes, 0, bytesReceived);
             Console.WriteLine(msg);
-            return msg;
+            var decryptedMessage = DecryptMessge(msg);
+            Console.WriteLine(decryptedMessage);
+            return decryptedMessage;
         }
         public static void send(string text)
         {
-            sendMsg(text);
             string response = getMsg();
+            sendMsg(text);
         }
         public static string recieve()
         {
@@ -73,10 +82,15 @@ namespace ClientGUI
             try
             {
                 Console.WriteLine("waiting to connect to the server");
-                clientSocket.Connect(remoteEP);
+                clientSocket.Connect(remoteEP); // connection point and handshake complete
+                // send client public key to server
+                
                 Console.WriteLine("Connected succefully to port 777");
+                s.WaitOne();
+                string test = recieve();
+                Console.WriteLine(test);
                 string welcomemsg = recieve();
-
+                s.Release();
                 listen = new Thread(new ThreadStart(main.updateChat));
             }
             catch (Exception e)
@@ -84,8 +98,8 @@ namespace ClientGUI
                 Console.WriteLine(e.ToString());
             }
         }
-       
-       
+
+
         private void Login_Load(object sender, EventArgs e)
         {
             StartClient();
@@ -101,6 +115,7 @@ namespace ClientGUI
         // login
         private void loginbtn_Click(object sender, EventArgs e)
         {
+            s.WaitOne();
             send("1");
             string username = this.ustxtbx.Text;
             send(username);
@@ -109,6 +124,7 @@ namespace ClientGUI
             Console.WriteLine(password);
             send(password);
             string response = recieve();
+            s.Release();
             Console.WriteLine(response);
 
             if (response == "Loggin in")
@@ -132,7 +148,7 @@ namespace ClientGUI
             {
                 MessageBox.Show("Username or Password are not valid, please try again!");
             }
-            
+
         }
         // closing the form
         public static void handleClosing()
@@ -162,5 +178,24 @@ namespace ClientGUI
                 }
             }
         }
+
+        private static string getKey()
+        {
+            var key = "b14ca5898a4e4133bbce2ea2315a1916";
+            return key;
+        }
+        public static string EncryptMessage(string text)
+        {
+            var key = getKey();
+            var encryptedString = aes.Encrypt(text, key);
+            return encryptedString;
+        }
+        public static string DecryptMessge(string text)
+        {
+            var key = getKey();
+            var decryptedString = aes.Decrypt(text, key);
+            return decryptedString;
+        }
     }
+
 }

@@ -21,12 +21,18 @@ class Db:
             self.cursor.execute("select * from messagelog")
             result = self.cursor.fetchall()
             self.count = len(result) + 1
+            self.cursor.execute("SET GLOBAL max_allowed_packet=67108864")
+            self.connection.commit()
         except Exception:
             self.populate() 
         
 
     def populate(self):
-        self.cursor.execute("source ")
+        self.cursor.execute("source employeeinfo.sql")
+        self.cursor.execute("source MessageLog.sql")
+        self.cursor.execute("SET GLOBAL max_allowed_packet=67108864")
+        self.connection.commit()
+        
 
     def isPasswordValid(self, username, password):
         self.cursor.execute(f"select * from info where Eemail = \"{username}\";")

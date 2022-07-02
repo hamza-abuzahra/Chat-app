@@ -1,19 +1,28 @@
-from argparse import ArgumentError
-from ast import Try
-from urllib import response
+# from argparse import ArgumentError
+# from ast import Try
+# from urllib import response
 import requests
 import socket as sk
 from _thread import *
 import datetime as datetime
 
+from AesEverywhere import aes256
+from threading import *         
+import time
+
 url = "http://127.0.0.1:5000/"
-fullmsg = ''
 active_users = []
+s = Semaphore()
+
+
+
 class Server():
     # constructor creates the socket object 
     def __init__(self, port):
         self.socket = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
         self.port = port
+    
+
 
     # start listening for a client to connect, and then calls auth function 
     # to check the login information of the client
@@ -28,26 +37,36 @@ class Server():
     def accept_connections(self):
         c, self.address = self.socket.accept()
         print("connected successfully")
+        # ask the client for public key
+        self.send(c, "=")
         self.send(c, "Welcome to the server")
         start_new_thread(self.mainFunc, (c, ))
 
     # waits for a message from the client and return the message
     def getMessage(self, c):
         message = c.recv(1024).decode()
-        print(message)
-        return message
+        # decryption
+        msg = aes256.decrypt(message, self.getKey()).decode()
+        print(msg, "g")
+        return msg
     
     # send a message to the client
     def sendMessage(self, c,  message):
-        c.send(message.encode())
+        # encryption
+        print(message, "s")
+        encrypted = aes256.encrypt(message, self.getKey())
+        print(encrypted)
+        c.send(encrypted)
     
     def getResponse(self, method="", args=""):
+        s.acquire()
         requestedUrl = f"{url}{method}?{args}"
+        s.release()
         return requests.get(requestedUrl).text
 
     def recieve(self, c):
+        self.sendMessage(c, "you can send me now")
         msg = self.getMessage(c)
-        self.sendMessage(c, "got it")
         return msg
 
     def send(self, c, msg):
@@ -60,6 +79,7 @@ class Server():
             if msg == "0":
                 self.signUp(c)
             elif msg == "1":
+                print("hi")
                 self.auth(c)
             elif msg == "2":
                 self.active(c)
@@ -76,6 +96,8 @@ class Server():
             elif msg == "exit":
                 self.endConnection(c)
                 break
+            else:
+                print("not valid")
 
     # functions for application (authintication, signing up, who is active, sending messages (1-1, 1-M), super user) 
     def auth(self, c):
@@ -118,12 +140,20 @@ class Server():
         self.send(c, "END")      
 
     def active(self, c):
-        users = "\n".join(active_users)
+        a = []
+        for u in active_users:
+            inx = u.find("@")
+            if inx > -1:
+                a.append(u[:inx])
+            else:
+                a.append(u)
+        users = ",".join(a)
         self.send(c, users)
 
     def endConnection(self, c):
         username = self.recieve(c)
-        active_users.remove(username)
+        if username in active_users:
+            active_users.remove(username)
         self.getResponse("updateaccesstime", f"username={username}")
         c.close()
 
@@ -138,6 +168,11 @@ class Server():
             self.send(c, time)
         self.send(c, "END")
 
+    # encryption/decryption
+    def getKey(self):
+        return "b14ca5898a4e4133bbce2ea2315a1916"
+
+    
 
 # create and starts the server class
 def main():
@@ -146,3 +181,7 @@ def main():
 
 
 main()
+
+
+#decMessage = rsa.decrypt(encMessage, privateKey).decode()
+# encrypting message from server to client"""""

@@ -40,5 +40,22 @@ C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\
 C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\ClientGUI\ClientGUI\obj\Debug\ClientGUI.csproj.CoreCompileInputs.cache
 C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\ClientGUI\ClientGUI\obj\Debug\ClientGUI.exe
 C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\ClientGUI\ClientGUI\obj\Debug\ClientGUI.pdb
+<<<<<<< HEAD
 C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\ClientGUI\ClientGUI\obj\Debug\ClientGUI.Logs.resources
 C:\Users\hka20\Desktop\university\term6\CMPE 322 Computer Networks\assignment 2\ClientGUI\ClientGUI\obj\Debug\ClientGUI.Superuser.resources
+=======
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\bin\Debug\ClientGUI.exe.config
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\bin\Debug\ClientGUI.exe
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\bin\Debug\ClientGUI.pdb
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\obj\Debug\ClientGUI.csproj.AssemblyReference.cache
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\obj\Debug\ClientGUI.csproj.SuggestedBindingRedirects.cache
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\obj\Debug\ClientGUI.Login.resources
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\obj\Debug\ClientGUI.MiniForm.resources
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\obj\Debug\ClientGUI.Form2.resources
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\obj\Debug\ClientGUI.Main.resources
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\obj\Debug\ClientGUI.Properties.Resources.resources
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\obj\Debug\ClientGUI.csproj.GenerateResource.cache
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\obj\Debug\ClientGUI.csproj.CoreCompileInputs.cache
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\obj\Debug\ClientGUI.exe
+C:\Users\Mohammad\Documents\GitHub\Chat-app\ClientGUI\ClientGUI\obj\Debug\ClientGUI.pdb
+>>>>>>> f98ea9c9b9fe7a96e5f333bab8526e78f4d0aae4

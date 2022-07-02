@@ -1,0 +1,32 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "641dfd9f-ff90-4fa7-9f17-1f01b979589d": {
+      "ProjectGuid": "641dfd9f-ff90-4fa7-9f17-1f01b979589d",
+      "DisplayName": "ClientGUI",
+      "ColorIndex": 0
+    },
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    "9dcc197f-a16a-4d58-a5b3-c1a29ebf07d2": {
+      "ProjectGuid": "9dcc197f-a16a-4d58-a5b3-c1a29ebf07d2",
+      "DisplayName": "Solution Items",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+=======
+=======
+>>>>>>> Stashed changes
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 1
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+}

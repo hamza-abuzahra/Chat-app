@@ -50,6 +50,7 @@ namespace ClientGUI
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            Login.s.WaitOne();
             Login.send("7");
             string info, msg, time;
             info = "";
@@ -63,6 +64,7 @@ namespace ClientGUI
                 time = Login.recieve();
                 info += msg +"\t" + time +"\n";
             }
+            Login.s.Release();
             MessageBox.Show(info, "Activity", MessageBoxButtons.OK);
         }
 
@@ -75,34 +77,39 @@ namespace ClientGUI
                 u1 = "Everyone";
                 u2 = "Everyone";
             }
-            else if (u1 == "" || u2 == ""){
+            if (u1 == "" || u2 == ""){
                 MessageBox.Show("please choose the two employees to see the log");
-                return;
             }
-            Login.send("6");
-            Login.send(u1);
-            Login.send(u2);
-            Logs logs = new Logs();
-            logs.Label1Text = u1;
-            logs.Label2Text = u2;
-            while (true)
+            else
             {
-                string msg = Login.recieve();
-                if (msg == "END")
+                Login.s.WaitOne();
+                Login.send("6");
+                Login.send(u1);
+                Login.send(u2);
+                Logs logs = new Logs();
+                logs.Label1Text = u1;
+                logs.Label2Text = u2;
+                while (true)
                 {
-                    break;
+                    string msg = Login.recieve();
+                    if (msg == "END")
+                    {
+                        break;
+                    }
+                    string msender = Login.recieve();
+                    string mreciever = Login.recieve();
+                    string ms = Login.idnames[Int32.Parse(msender) - 1];
+                    int index = ms.IndexOf("@");
+                    if (index >= 0)
+                    {
+                        ms = ms.Substring(0, index);
+                    }
+                    logs.appendtextbox = ms + " :  " + msg + "\r\n";
                 }
-                string msender = Login.recieve();
-                string mreciever = Login.recieve();
-                string ms = Login.idnames[Int32.Parse(msender) - 1];
-                int index = ms.IndexOf("@");
-                if (index >= 0)
-                {
-                    ms = ms.Substring(0, index);
-                }
-                logs.appendtextbox = ms + " :  " + msg;
+                Login.s.Release();
+                logs.ShowDialog();
             }
-            logs.ShowDialog();
+            
         }
 
         private void Superuser_FormClosing(object sender, FormClosingEventArgs e)

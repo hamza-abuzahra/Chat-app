@@ -71,7 +71,7 @@ namespace ClientGUI
                 {
                     Console.WriteLine("select a reciever");
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
             }
         }
 
@@ -95,6 +95,7 @@ namespace ClientGUI
             Login.s.WaitOne();
             Login.send("2");
             string users = Login.recieve();
+            Console.WriteLine(users);
             Login.s.Release();
             DateTime now = DateTime.Now;
             MessageBox.Show(users, now.ToString(), MessageBoxButtons.OK);
